@@ -11,24 +11,10 @@
 }
 
 
-.header {
-    grid-area: h;
-    background-color: #6ade74;
-}
 
-.header img {
-    width: 25px;
-}
 
-.nav {
-    grid-area: n;
-    background-color: #f86666;
-}
 
-.content {
-    grid-area: c;
-    background-color: #46bbe5;
-}
+
 
 ul li {
     list-style: none;
