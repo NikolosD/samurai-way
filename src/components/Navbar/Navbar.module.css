@@ -4,11 +4,16 @@
     background-color: #f86666;
 }
 
-.item{
-    color: white;
+a{
     text-decoration: none;
 }
 
-.item.active{
+.item{
+    color: white;
+
+}
+
+.active{
     color: goldenrod;
+    font-weight: bold;
 }
