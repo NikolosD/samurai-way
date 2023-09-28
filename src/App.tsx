@@ -20,7 +20,7 @@ function App() {
                         <Route path={'/profile'} element={<Profile/>}/>
                         <Route path={'/dialogs'} element={<Dialogs/>}/>
                         </Routes>
-                        <Dialogs/>
+
                     </div>
 
                 </div>
