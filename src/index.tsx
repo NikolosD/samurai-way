@@ -21,6 +21,7 @@ let messagesData = [
 let postData = [
     {id:1 ,message:'Hello it"s my first post', likesCount:15},
     {id:2 ,message:'Hello it"s my second post', likesCount:5},
+    {id:3 ,message:'Hello it"s my third post', likesCount:25},
 ]
 
 ReactDOM.render(
