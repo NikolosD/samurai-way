@@ -17,10 +17,6 @@ type AppProps = {
 
 
 function App(props: AppProps) {
-
-
-
-
     return (
         <BrowserRouter>
             <div className="App">
@@ -38,5 +34,4 @@ function App(props: AppProps) {
         </BrowserRouter>
     );
 }
-
 export default App;

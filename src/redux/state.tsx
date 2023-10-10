@@ -1,4 +1,8 @@
-import {rerenderEntireTree} from "../render";
+import App from "../App";
+
+let rerenderEntireTree = (state: AppState) => {
+
+}
 
 export type DialogData = {
     id: number;
@@ -23,10 +27,9 @@ export interface AppState {
     };
     profilePage: {
         postData: PostData[];
-        newPostText:string
+        newPostText: string
     };
 }
-
 
 
 let state: AppState = {
@@ -53,16 +56,24 @@ let state: AppState = {
 }
 
 export const addPost = () => {
-    const newPost: PostData = { id:state.profilePage.postData.length+1,message:state.profilePage.newPostText, likesCount:10}
+    const newPost: PostData = {
+        id: state.profilePage.postData.length + 1,
+        message: state.profilePage.newPostText,
+        likesCount: 10
+    }
     state.profilePage.postData.push(newPost)
     state.profilePage.newPostText = ' '
     rerenderEntireTree(state)
 }
 
 
-export const updateNewPostText = (newText:string) => {
+export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
     rerenderEntireTree(state)
+}
+
+export const subscribe = (observer: (state: AppState)=> void) => {
+    rerenderEntireTree = observer
 }
 
 
