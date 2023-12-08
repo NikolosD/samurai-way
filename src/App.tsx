@@ -6,7 +6,8 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Header} from "./components/Header/Header";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {addPost, AppState, updateNewPostText} from "./redux/state";
+import {AppState} from "./redux/state";
+
 
 type AppProps = {
     state: AppState

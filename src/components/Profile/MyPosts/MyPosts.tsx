@@ -1,7 +1,7 @@
 import React, {ChangeEvent, createRef, useRef} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {AppState, PostData, updateNewPostText} from "../../../redux/state";
+import {AppState} from "../../../redux/state";
 
 
 type MyPostsPropsType = {
