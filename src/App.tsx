@@ -11,9 +11,8 @@ import {AppState} from "./redux/state";
 
 type AppProps = {
     state: AppState
-    addPost: (postData:string)=> void
     newPostText:string
-    updateNewPostText: (newText:string) => void
+    dispatch: (action:any)=> void
 };
 
 
@@ -26,7 +25,7 @@ function App(props: AppProps) {
                     <Navbar/>
                     <div className='app-wrapper-content'>
                         <Routes>
-                            <Route path={'/profile'} element={<Profile state={props.state} addPost={props.addPost} newPostText={props.newPostText} updateNewPostText={props.updateNewPostText}  />}/>
+                            <Route path={'/profile'} element={<Profile state={props.state} dispatch={props.dispatch} newPostText={props.newPostText}/>}/>
                             <Route path={'/dialogs'} element={<Dialogs state={props.state}/>}/>
                         </Routes>
                     </div>
