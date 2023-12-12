@@ -1,12 +1,13 @@
 import React, {ChangeEvent, createRef, useRef} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ActionType, addPostAC, AppState, updateNewPostTextAC} from "../../../redux/state";
+import { addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
+import {AppState} from "../../../redux/state";
 
 
 type MyPostsPropsType = {
     state: AppState
-    dispatch: (action: ActionType) => void
+    dispatch: (action: any) => void
 }
 export const MyPosts = (props: MyPostsPropsType) => {
 
