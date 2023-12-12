@@ -6,7 +6,6 @@ import {ActionType, addPostAC, AppState, updateNewPostTextAC} from "../../../red
 
 type MyPostsPropsType = {
     state: AppState
-    newPostText: string
     dispatch: (action: ActionType) => void
 }
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -36,7 +35,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <div className={s.postsBlock}>
                 <h3>My posts</h3>
                 <div>
-                    <textarea ref={newPostElement} value={props.newPostText} onChange={onPostChange}/>
+                    <textarea ref={newPostElement} value={props.state.profilePage.newPostText} onChange={onPostChange}/>
                     <button onClick={addPost}>Add post</button>
                 </div>
                 <div className={s.posts}>

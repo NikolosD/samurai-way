@@ -7,14 +7,13 @@ import {ActionType, AppState} from "../../redux/state";
 
 type ProfileType = {
     state:  AppState
-    newPostText: string
     dispatch: (action: ActionType) => void
 }
 export const Profile = (props:ProfileType) => {
     return (
         <div >
             <ProfileInfo/>
-            <MyPosts state={props.state} dispatch={props.dispatch} newPostText={props.newPostText}  />
+            <MyPosts state={props.state} dispatch={props.dispatch}   />
         </div>
     );
 };

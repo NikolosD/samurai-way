@@ -22,6 +22,7 @@ export interface AppState {
     messagesPage: {
         dialogsData: DialogData[];
         messagesData: MessageData[];
+        newMessageText: string
     };
     profilePage: {
         postData: PostData[];
@@ -37,11 +38,15 @@ export type StoreType = {
     _callSubscriber: (state: AppState) => void;
 }
 
-export type ActionType = AddPostActionType |  UpdateNewTextActionType
+export type ActionType = AddPostActionType |  UpdateNewTextActionType | AddMessageActionType | UpdateNewMessageTextActionType
 
 type AddPostActionType = ReturnType<typeof addPostAC>
 
 type UpdateNewTextActionType = ReturnType<typeof updateNewPostTextAC>
+
+type AddMessageActionType = ReturnType<typeof addMessageAC>
+
+type UpdateNewMessageTextActionType = ReturnType<typeof updateNewMessageTextAC>
 
 let store: StoreType = {
     _state: {
@@ -56,6 +61,7 @@ let store: StoreType = {
                 {id: 2, message: 'Ola!'},
                 {id: 3, message: 'Coma esta?'},
             ],
+            newMessageText: '',
         },
         profilePage: {
             postData: [
@@ -89,6 +95,18 @@ let store: StoreType = {
         }else if(action.type === 'UPDATE-NEW-POST-TEXT'){
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber(this._state)
+        }else if(action.type === 'ADD-MESSAGE'){
+            const newMessage: MessageData = {
+                id: this._state.messagesPage.messagesData.length+1,
+                message: this._state.messagesPage.newMessageText,
+            }
+            this._state.messagesPage.messagesData.push(newMessage)
+            this._state.messagesPage.newMessageText = ' '
+            this._callSubscriber(this._state)
+        }
+        else if(action.type === 'UPDATE-NEW-MESSAGE-TEXT'){
+            this._state.messagesPage.newMessageText = action.newMessage
+            this._callSubscriber(this._state)
         }
     }
 }
@@ -107,5 +125,18 @@ export const updateNewPostTextAC = (newText: string ) =>{
     }  as const
 }
 
+export const addMessageAC = (newMessage: string)  =>{
+    return {
+        type: "ADD-MESSAGE",
+        newMessage: newMessage
+    }  as const
+}
+
+export const updateNewMessageTextAC = (newMessage: string ) =>{
+    return{
+        type: "UPDATE-NEW-MESSAGE-TEXT",
+        newMessage: newMessage
+    }  as const
+}
 export default store;
 

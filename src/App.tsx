@@ -6,12 +6,12 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Header} from "./components/Header/Header";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AppState} from "./redux/state";
+import {AppState, StoreType} from "./redux/state";
 
 
 type AppProps = {
     state: AppState
-    newPostText:string
+    store: StoreType
     dispatch: (action:any)=> void
 };
 
@@ -25,8 +25,8 @@ function App(props: AppProps) {
                     <Navbar/>
                     <div className='app-wrapper-content'>
                         <Routes>
-                            <Route path={'/profile'} element={<Profile state={props.state} dispatch={props.dispatch} newPostText={props.newPostText}/>}/>
-                            <Route path={'/dialogs'} element={<Dialogs state={props.state}/>}/>
+                            <Route path={'/profile'} element={<Profile state={props.state} dispatch={props.dispatch}/>}/>
+                            <Route path={'/dialogs'} element={<Dialogs store={props.store}/>}/>
                         </Routes>
                     </div>
                 </div>
