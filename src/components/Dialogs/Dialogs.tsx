@@ -6,31 +6,31 @@ import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer"
 
 import {AppRootStateType} from "../../redux/redux-store";
 import {ActionsType} from "../../redux/store";
+import {keyboard} from "@testing-library/user-event/dist/keyboard";
 
 
 
 type DialogsType = {
-    state: AppRootStateType
+    store: AppRootStateType
     dispatch: (action:ActionsType) => void
+    addMessage: (newMessageText: string) => void
+    onMessageChange: (e:ChangeEvent<HTMLTextAreaElement>) => void
 }
 
 export const Dialogs = (props: DialogsType) => {
 
-
-
     const onMessageChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) =>{
-        props.dispatch(updateNewMessageTextAC(e.currentTarget.value))
+        props.onMessageChange(e)
     }
 
     const addMessageHandler = () =>{
-        props.dispatch(addMessageAC(newMessageText))
-
+      props.addMessage(newMessageText)
     }
 
-    let state = props.state.dialogs
+    let state = props.store.dialogs
     let newMessageText = state.newMessageText
-    let dialogsElement = state.dialogsData.map(d => <DialogsItem id={d.id} name={d.name}/>)
-    let messageElement = state.messagesData.map(m => <Message message={m.message}/>)
+    let dialogsElement = state.dialogsData.map(d => <DialogsItem id={d.id} name={d.name} key={d.id}/>  )
+    let messageElement = state.messagesData.map(m =>  <Message message={m.message} key={m.id} />)
 
         return (
             <div className={s.dialogs}>

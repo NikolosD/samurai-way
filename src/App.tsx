@@ -8,11 +8,11 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {AppRootStateType} from "./redux/redux-store";
 import {ActionsType,  StoreType} from "./redux/store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 type AppProps = {
-    store: StoreType
-    state: AppRootStateType
+    store: AppRootStateType
     dispatch: (action:ActionsType) => void
 };
 
@@ -26,8 +26,8 @@ function App(props: AppProps) {
                     <Navbar/>
                     <div className='app-wrapper-content'>
                         <Routes>
-                            <Route path={'/profile'} element={<Profile state={props.state} dispatch={props.dispatch}/>}/>
-                            <Route path={'/dialogs'} element={<Dialogs state={props.state} dispatch={props.dispatch}/>}/>
+                            <Route path={'/profile'} element={<Profile store={props.store} dispatch={props.dispatch}/>}/>
+                            <Route path={'/dialogs'} element={<DialogsContainer store={props.store} dispatch={props.dispatch}/>}/>
                         </Routes>
                     </div>
                 </div>

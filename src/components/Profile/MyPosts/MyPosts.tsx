@@ -1,7 +1,7 @@
-import React, {ChangeEvent, createRef, useRef} from 'react';
+import React, {createRef,} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import { addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
+
 import {AppRootStateType} from "../../../redux/redux-store";
 import {ActionsType} from "../../../redux/store";
 
@@ -9,11 +9,13 @@ import {ActionsType} from "../../../redux/store";
 type MyPostsPropsType = {
     state: AppRootStateType
     dispatch: (action: ActionsType) => void
+    addPost: (text: string) => void
+    onPostChange: (text: string) => void
 }
 export const MyPosts = (props: MyPostsPropsType) => {
 
     const postsElements = props.state.profile.postData.map(p => <Post message={p.message}
-                                                                          likesCount={p.likesCount}/>)
+                                                                      likesCount={p.likesCount}/>)
 
 
     const newPostElement = createRef<HTMLTextAreaElement>();
@@ -21,14 +23,14 @@ export const MyPosts = (props: MyPostsPropsType) => {
     const addPost = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value
-            props.dispatch(addPostAC(text))
+            props.addPost(text)
         }
     }
 
     let onPostChange = () => {
         if (newPostElement.current) {
             let text = newPostElement.current?.value
-            props.dispatch(updateNewPostTextAC(text))
+            props.onPostChange(text)
         }
     }
 
