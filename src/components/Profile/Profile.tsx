@@ -2,11 +2,12 @@ import React from 'react';
 import s from './Profile.module.css';
 import {MyPosts} from "./MyPosts/MyPosts";
 import ProfileInfo from "./MyPosts/ProfileInfo/ProfileInfo";
-import { AppState} from "../../redux/state";
+import {AppRootStateType} from "../../redux/redux-store";
+
 
 
 type ProfileType = {
-    state:  AppState
+    state:  AppRootStateType
     dispatch: (action: any) => void
 }
 export const Profile = (props:ProfileType) => {

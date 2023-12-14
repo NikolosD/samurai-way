@@ -1,7 +1,12 @@
 import App from "../App";
 import {access} from "fs";
-import {AddMessageActionType, dialogsReducer} from "./dialogs-reducer";
-import {AddPostActionType, profileReducer} from "./profile-reducer";
+import {
+    AddMessageActionType,
+    dialogsPageReducerType,
+    dialogsReducer,
+    UpdateNewMessageTextActionType
+} from "./dialogs-reducer";
+import {AddPostActionType, ProfilePageActionType, profileReducer, UpdateNewTextActionType} from "./profile-reducer";
 
 
 export type DialogData = {
@@ -36,11 +41,12 @@ export type StoreType = {
     _state: AppState
     subscribe:(callback:(state: AppState)=>void) => void
     getState: () => AppState
-    dispatch: (action:any) => void
+    dispatch: (action:ActionsType) => void
     _callSubscriber: (state: AppState) => void;
 }
 
-
+// export type ActionsType = AddPostActionType | UpdateNewTextActionType | UpdateNewMessageTextActionType | AddMessageActionType
+export type ActionsType = ProfilePageActionType | dialogsPageReducerType
 
 
 let store: StoreType = {
@@ -78,8 +84,8 @@ let store: StoreType = {
     },
 
     dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage,action)
-        this._state.messagesPage = dialogsReducer(this._state.messagesPage,action)
+        this._state.profilePage = profileReducer(this._state.profilePage,action as ProfilePageActionType)
+        this._state.messagesPage = dialogsReducer(this._state.messagesPage,action as dialogsPageReducerType)
         this._callSubscriber(this._state)
     }
 }

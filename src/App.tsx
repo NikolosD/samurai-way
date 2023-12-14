@@ -6,19 +6,20 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Header} from "./components/Header/Header";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AppState, StoreType} from "./redux/state";
+import {AppRootStateType} from "./redux/redux-store";
+import {ActionsType,  StoreType} from "./redux/store";
 
 
 type AppProps = {
-    state: AppState
     store: StoreType
-    dispatch: (action:any)=> void
+    state: AppRootStateType
+    dispatch: (action:ActionsType) => void
 };
 
 
 function App(props: AppProps) {
     return (
-        <BrowserRouter>
+
             <div className="App">
                 <div className='app-wrapper'>
                     <Header/>
@@ -26,12 +27,12 @@ function App(props: AppProps) {
                     <div className='app-wrapper-content'>
                         <Routes>
                             <Route path={'/profile'} element={<Profile state={props.state} dispatch={props.dispatch}/>}/>
-                            <Route path={'/dialogs'} element={<Dialogs store={props.store}/>}/>
+                            <Route path={'/dialogs'} element={<Dialogs state={props.state} dispatch={props.dispatch}/>}/>
                         </Routes>
                     </div>
                 </div>
             </div>
-        </BrowserRouter>
+
     );
 }
 export default App;

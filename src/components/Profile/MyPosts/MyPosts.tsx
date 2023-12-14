@@ -2,16 +2,17 @@ import React, {ChangeEvent, createRef, useRef} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import { addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
-import {AppState} from "../../../redux/state";
+import {AppRootStateType} from "../../../redux/redux-store";
+import {ActionsType} from "../../../redux/store";
 
 
 type MyPostsPropsType = {
-    state: AppState
-    dispatch: (action: any) => void
+    state: AppRootStateType
+    dispatch: (action: ActionsType) => void
 }
 export const MyPosts = (props: MyPostsPropsType) => {
 
-    const postsElements = props.state.profilePage.postData.map(p => <Post message={p.message}
+    const postsElements = props.state.profile.postData.map(p => <Post message={p.message}
                                                                           likesCount={p.likesCount}/>)
 
 
@@ -36,7 +37,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <div className={s.postsBlock}>
                 <h3>My posts</h3>
                 <div>
-                    <textarea ref={newPostElement} value={props.state.profilePage.newPostText} onChange={onPostChange}/>
+                    <textarea ref={newPostElement} value={props.state.profile.newPostText} onChange={onPostChange}/>
                     <button onClick={addPost}>Add post</button>
                 </div>
                 <div className={s.posts}>

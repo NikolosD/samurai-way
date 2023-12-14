@@ -1,4 +1,4 @@
-import {PostData, } from "./state";
+import {PostData} from "./store";
 
 export type AddPostActionType = ReturnType<typeof addPostAC>
 
@@ -11,8 +11,15 @@ type profilePageType = {
     newPostText: string
 }
 
-
-export const profileReducer = (state: profilePageType, action: ProfilePageActionType) => {
+const initialState: profilePageType = {
+    postData: [
+        {id: 1, message: 'Hello it"s my first post', likesCount: 15},
+        {id: 2, message: 'Hello it"s my second post', likesCount: 5},
+        {id: 3, message: 'Hello it"s my third post', likesCount: 25},
+    ],
+    newPostText: '',
+}
+export const profileReducer = (state: profilePageType = initialState, action: ProfilePageActionType) => {
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostData = {
