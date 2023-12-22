@@ -5,7 +5,7 @@ import {PostData} from "../../../redux/store";
 
 
 
-type MyPostsPropsType = {
+export type MyPostsPropsType = {
     posts: PostData[]
     newPostText: string
     addPost: (text: string) => void
