@@ -1,12 +1,9 @@
-import App from "../App";
-import {access} from "fs";
+
 import {
-    AddMessageActionType,
     dialogsPageReducerType,
     dialogsReducer,
-    UpdateNewMessageTextActionType
 } from "./dialogs-reducer";
-import {AddPostActionType, ProfilePageActionType, profileReducer, UpdateNewTextActionType} from "./profile-reducer";
+import {ProfilePageActionType, profileReducer } from "./profile-reducer";
 
 
 export type DialogData = {
@@ -39,10 +36,10 @@ export interface AppState {
 
 export type StoreType = {
     _state: AppState
-    subscribe:(callback:(state: AppState)=>void) => void
+    subscribe:(callback:() =>void) => void
     getState: () => AppState
     dispatch: (action:ActionsType) => void
-    _callSubscriber: (state: AppState) => void;
+    _callSubscriber: () => void;
 }
 
 // export type ActionsType = AddPostActionType | UpdateNewTextActionType | UpdateNewMessageTextActionType | AddMessageActionType
@@ -73,20 +70,20 @@ let store: StoreType = {
             newPostText: '',
         },
     },
-    _callSubscriber(state: AppState) {
+    _callSubscriber() {
     },
     getState() {
         return this._state
     },
 
-    subscribe(observer: (state: AppState) => void) {
+    subscribe(observer: () => void) {
         this._callSubscriber = observer
     },
 
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage,action as ProfilePageActionType)
         this._state.messagesPage = dialogsReducer(this._state.messagesPage,action as dialogsPageReducerType)
-        this._callSubscriber(this._state)
+        this._callSubscriber()
     }
 }
 

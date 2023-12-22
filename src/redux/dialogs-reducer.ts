@@ -7,7 +7,7 @@ export type AddMessageActionType = ReturnType<typeof addMessageAC>
 
 export type UpdateNewMessageTextActionType = ReturnType<typeof updateNewMessageTextAC>
 
-type dialogsPageType = {
+export type dialogsPageType = {
     dialogsData: DialogData[];
     messagesData: MessageData[];
     newMessageText: string

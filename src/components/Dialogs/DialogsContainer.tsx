@@ -1,36 +1,36 @@
 import React, {ChangeEvent} from 'react';
 import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
-import {AppRootStateType} from "../../redux/redux-store";
-import {ActionsType} from "../../redux/store";
+
 import {Dialogs} from "./Dialogs";
+import {StoreContext} from "../../redux/StoreContext";
 
 
-
-type DialogsContainerType = {
-    store: AppRootStateType
-    dispatch: (action:ActionsType) => void
-}
+type DialogsContainerType = {}
 
 export const DialogsContainer = (props: DialogsContainerType) => {
 
+    return (
+        <StoreContext.Consumer>
+            {store => {
+                const onMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+                    store.dispatch(updateNewMessageTextAC(e.currentTarget.value))
+                }
+
+                const addMessageHandler = () => {
+                    store.dispatch(addMessageAC(newMessageText))
+
+                }
+
+                let newMessageText = store.getState().messagesPage.newMessageText
 
 
-    const onMessageChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) =>{
-        props.dispatch(updateNewMessageTextAC(e.currentTarget.value))
-    }
+                return (
+                    <Dialogs state={store.getState()} addMessage={addMessageHandler}
+                             onMessageChange={onMessageChangeHandler} />
+                );
 
-    const addMessageHandler = () =>{
-        props.dispatch(addMessageAC(newMessageText))
-
-    }
-
-    let state = props.store.dialogs
-    let newMessageText = state.newMessageText
-
-
-        return (
-        <Dialogs store={props.store} dispatch={props.dispatch} addMessage={addMessageHandler} onMessageChange={onMessageChangeHandler}/>
-        );
-    }
-;
+            }}
+        </StoreContext.Consumer>
+    )
+}
 

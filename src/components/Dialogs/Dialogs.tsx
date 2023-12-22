@@ -2,17 +2,15 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Message/Message";
-import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 
-import {AppRootStateType} from "../../redux/redux-store";
-import {ActionsType} from "../../redux/store";
-import {keyboard} from "@testing-library/user-event/dist/keyboard";
+
+
+import {AppState, DialogData, MessageData} from "../../redux/store";
 
 
 
 type DialogsType = {
-    store: AppRootStateType
-    dispatch: (action:ActionsType) => void
+    state: AppState
     addMessage: (newMessageText: string) => void
     onMessageChange: (e:ChangeEvent<HTMLTextAreaElement>) => void
 }
@@ -27,10 +25,10 @@ export const Dialogs = (props: DialogsType) => {
       props.addMessage(newMessageText)
     }
 
-    let state = props.store.dialogs
+    let state = props.state.messagesPage
     let newMessageText = state.newMessageText
-    let dialogsElement = state.dialogsData.map(d => <DialogsItem id={d.id} name={d.name} key={d.id}/>  )
-    let messageElement = state.messagesData.map(m =>  <Message message={m.message} key={m.id} />)
+    let dialogsElement = state.dialogsData.map((d:DialogData) => <DialogsItem id={d.id} name={d.name} key={d.id}/>  )
+    let messageElement = state.messagesData.map((m:MessageData) =>  <Message message={m.message} key={m.id} />)
 
         return (
             <div className={s.dialogs}>

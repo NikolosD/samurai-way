@@ -6,7 +6,7 @@ export type UpdateNewTextActionType = ReturnType<typeof updateNewPostTextAC>
 
 export type ProfilePageActionType = AddPostActionType | UpdateNewTextActionType
 
-type profilePageType = {
+export type profilePageType = {
     postData: PostData[];
     newPostText: string
 }

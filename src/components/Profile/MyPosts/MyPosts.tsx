@@ -1,20 +1,19 @@
 import React, {createRef,} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
+import {PostData} from "../../../redux/store";
 
-import {AppRootStateType} from "../../../redux/redux-store";
-import {ActionsType} from "../../../redux/store";
 
 
 type MyPostsPropsType = {
-    state: AppRootStateType
-    dispatch: (action: ActionsType) => void
+    posts: PostData[]
+    newPostText: string
     addPost: (text: string) => void
     onPostChange: (text: string) => void
 }
 export const MyPosts = (props: MyPostsPropsType) => {
 
-    const postsElements = props.state.profile.postData.map(p => <Post message={p.message}
+    const postsElements = props.posts.map((p:PostData) => <Post message={p.message}
                                                                       likesCount={p.likesCount}/>)
 
 
@@ -39,7 +38,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <div className={s.postsBlock}>
                 <h3>My posts</h3>
                 <div>
-                    <textarea ref={newPostElement} value={props.state.profile.newPostText} onChange={onPostChange}/>
+                    <textarea ref={newPostElement} value={props.newPostText} onChange={onPostChange}/>
                     <button onClick={addPost}>Add post</button>
                 </div>
                 <div className={s.posts}>
