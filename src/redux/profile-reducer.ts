@@ -1,4 +1,5 @@
 import {PostData} from "./store";
+import {ProfilePageType} from "../components/Profile/MyPosts/MyPostsContainer";
 
 export type AddPostActionType = ReturnType<typeof addPostAC>
 
@@ -6,12 +7,9 @@ export type UpdateNewTextActionType = ReturnType<typeof updateNewPostTextAC>
 
 export type ProfilePageActionType = AddPostActionType | UpdateNewTextActionType
 
-export type profilePageType = {
-    postData: PostData[];
-    newPostText: string
-}
 
-const initialState: profilePageType = {
+
+const initialState: ProfilePageType = {
     postData: [
         {id: 1, message: 'Hello it"s my first post', likesCount: 15},
         {id: 2, message: 'Hello it"s my second post', likesCount: 5},
@@ -19,7 +17,7 @@ const initialState: profilePageType = {
     ],
     newPostText: '',
 }
-export const profileReducer = (state: profilePageType = initialState, action: ProfilePageActionType) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ProfilePageActionType) => {
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostData = {

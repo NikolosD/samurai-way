@@ -5,14 +5,16 @@ import {Message} from "./Message/Message";
 
 
 
-import {AppState, DialogData, MessageData} from "../../redux/store";
+import { DialogData, MessageData} from "../../redux/store";
+import {DialogsPageType} from "../../redux/dialogs-reducer";
 
 
 
 type DialogsType = {
-    state: AppState
+    state: DialogsPageType
     addMessage: (newMessageText: string) => void
     onMessageChange: (e:ChangeEvent<HTMLTextAreaElement>) => void
+
 }
 
 export const Dialogs = (props: DialogsType) => {
@@ -25,10 +27,10 @@ export const Dialogs = (props: DialogsType) => {
       props.addMessage(newMessageText)
     }
 
-    let state = props.state.messagesPage
-    let newMessageText = state.newMessageText
-    let dialogsElement = state.dialogsData.map((d:DialogData) => <DialogsItem id={d.id} name={d.name} key={d.id}/>  )
-    let messageElement = state.messagesData.map((m:MessageData) =>  <Message message={m.message} key={m.id} />)
+    let state = props.state.messagesData
+    let newMessageText = props.state.newMessageText
+    let dialogsElement = props.state.dialogsData.map((d:DialogData) => <DialogsItem id={d.id} name={d.name} key={d.id}/>  )
+    let messageElement = props.state.messagesData.map((m:MessageData) =>  <Message message={m.message} key={m.id} />)
 
         return (
             <div className={s.dialogs}>

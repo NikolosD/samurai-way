@@ -11,7 +11,7 @@ export const Profile = (props:ProfileType) => {
     return (
         <div >
             <ProfileInfo/>
-            <MyPostsContainer />
+            <MyPostsContainer/>
         </div>
     );
 };

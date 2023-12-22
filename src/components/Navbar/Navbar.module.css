@@ -8,12 +8,11 @@ a{
     text-decoration: none;
 }
 
-.item{
-    color: white;
-
+.link{
+    color: black;
 }
 
-.active{
+.link_active{
     color: goldenrod;
     font-weight: bold;
 }

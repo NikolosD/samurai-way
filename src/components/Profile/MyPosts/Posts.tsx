@@ -2,18 +2,18 @@ import React, {createRef,} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {PostData} from "../../../redux/store";
+import {ProfilePageType} from "./MyPostsContainer";
 
 
 
-export type MyPostsPropsType = {
-    posts: PostData[]
-    newPostText: string
+export type PostsPropsType = {
+    state: ProfilePageType
     addPost: (text: string) => void
     onPostChange: (text: string) => void
 }
-export const MyPosts = (props: MyPostsPropsType) => {
+export const Posts = (props: PostsPropsType) => {
 
-    const postsElements = props.posts.map((p:PostData) => <Post message={p.message}
+    const postsElements = props.state.postData.map((p:PostData) => <Post message={p.message}
                                                                       likesCount={p.likesCount}/>)
 
 
@@ -38,7 +38,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <div className={s.postsBlock}>
                 <h3>My posts</h3>
                 <div>
-                    <textarea ref={newPostElement} value={props.newPostText} onChange={onPostChange}/>
+                    <textarea ref={newPostElement} value={props.state.newPostText} onChange={onPostChange}/>
                     <button onClick={addPost}>Add post</button>
                 </div>
                 <div className={s.posts}>

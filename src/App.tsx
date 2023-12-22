@@ -5,8 +5,10 @@ import {Profile} from "./components/Profile/Profile";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Header} from "./components/Header/Header";
 
-import {Route, Routes} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {AppState} from "./redux/store";
+
 
 
 type AppProps = {
@@ -14,21 +16,19 @@ type AppProps = {
 };
 
 
-function App(props: AppProps) {
+const App: React.FC<AppProps> = () => {
     return (
 
-            <div className="App">
-                <div className='app-wrapper'>
-                    <Header/>
-                    <Navbar/>
-                    <div className='app-wrapper-content'>
-                        <Routes>
-                            <Route path={'/profile'} element={<Profile />}/>
-                            <Route path={'/dialogs'} element={<DialogsContainer/>}/>
-                        </Routes>
-                    </div>
+        <div className="App">
+            <div className='app-wrapper'>
+                <Header/>
+                <Navbar/>
+                <div className='app-wrapper-content'>
+                    <Route exact path="/profile" render={() => <Profile/>}/>
+                    <Route exact path="/dialogs" render={() => <DialogsContainer/>}/>
                 </div>
             </div>
+        </div>
 
     );
 }

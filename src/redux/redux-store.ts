@@ -1,7 +1,7 @@
-import {combineReducers, legacy_createStore} from "redux";
+import {combineReducers, createStore} from "redux";
 import {dialogsReducer} from "./dialogs-reducer";
 import {profileReducer} from "./profile-reducer";
-import {StoreType} from "./store";
+
 
 
 const rootReducer = combineReducers({
@@ -9,10 +9,10 @@ const rootReducer = combineReducers({
     profile: profileReducer,
 })
 
-export const store: StoreType = legacy_createStore(rootReducer)
+const store = createStore(rootReducer)
 export type AppStateType = ReturnType<typeof rootReducer>
 
 
-
+export default store
 // @ts-ignore
 window.store = store

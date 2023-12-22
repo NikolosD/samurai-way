@@ -7,13 +7,13 @@ export type AddMessageActionType = ReturnType<typeof addMessageAC>
 
 export type UpdateNewMessageTextActionType = ReturnType<typeof updateNewMessageTextAC>
 
-export type dialogsPageType = {
+export type DialogsPageType = {
     dialogsData: DialogData[];
     messagesData: MessageData[];
     newMessageText: string
 }
 
-const initialState : dialogsPageType = {
+const initialState : DialogsPageType = {
     dialogsData: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrew'},
@@ -26,7 +26,7 @@ const initialState : dialogsPageType = {
     ],
     newMessageText: '',
 }
-export const dialogsReducer = (state: dialogsPageType = initialState, action: dialogsPageReducerType) => {
+export const dialogsReducer = (state: DialogsPageType = initialState, action: dialogsPageReducerType) => {
     switch (action.type) {
 
         case'ADD-MESSAGE':
