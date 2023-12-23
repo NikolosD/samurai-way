@@ -19,7 +19,7 @@ type mapDispatchToPropsType = {
 
 const mapStateToProps = (state: AppStateType): DialogsContainerType => {
     return {
-        state: state.dialogs
+        state: state.dialogsPage
     }
 }
 

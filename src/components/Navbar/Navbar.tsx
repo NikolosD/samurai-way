@@ -28,6 +28,9 @@ export const Navbar = () => {
                 <div>
                     <NavLink to="/settings" activeClassName={s.link_active} className={s.link}>Settings</NavLink>
                 </div>
+                <div>
+                    <NavLink to="/users" activeClassName={s.link_active} className={s.link}>Users</NavLink>
+                </div>
             </ul>
         </nav>
     );

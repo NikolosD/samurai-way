@@ -27,7 +27,7 @@ store: AppStateType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        state: state.profile
+        state: state.profilePage
     }
 
 }

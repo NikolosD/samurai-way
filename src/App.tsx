@@ -8,6 +8,7 @@ import {Header} from "./components/Header/Header";
 import {Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {AppState} from "./redux/store";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 
 
@@ -26,6 +27,7 @@ const App: React.FC<AppProps> = () => {
                 <div className='app-wrapper-content'>
                     <Route exact path="/profile" render={() => <Profile/>}/>
                     <Route exact path="/dialogs" render={() => <DialogsContainer/>}/>
+                    <Route exact path="/users" render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </div>
