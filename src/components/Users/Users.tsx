@@ -1,6 +1,8 @@
 import React from 'react';
 import {UserPageType} from "../../redux/users-reducer";
 import s from './Users.module.css'
+import axios from "axios";
+import userPhoto from '../../assets/images/user.png'
 
 type PropsType = {
     users: UserPageType[]
@@ -11,12 +13,19 @@ type PropsType = {
 
 
 export const Users = (props: PropsType) => {
+
+    if (!props.users.length) {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(res => {
+                props.setUsersAC(res.data.items)
+            })
+    }
     return (
         <div>
             {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-<img className={s.userAvatar} src={u.photoUrl} alt=""/>
+<img className={s.userAvatar} src={u.photos.small || userPhoto} alt=""/>
                         </div>
 
                 <div>
@@ -25,12 +34,12 @@ export const Users = (props: PropsType) => {
                 </div>
                      </span>
                 <span>
-                    <div>{u.fullName}</div>
+                    <div>{u.name}</div>
                     <div>{u.status}</div>
                 </span>
                 <span>
-                    <div>{u.location.city}</div>
-                    <div>{u.location.country}</div>
+                    <div>{'u.location.city'}</div>
+                    <div>{'u.location.country'}</div>
                 </span>
             </div>)}
         </div>
