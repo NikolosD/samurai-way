@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {UserPageType} from "../../redux/users-reducer";
 import s from './Users.module.css'
 import axios from "axios";
@@ -13,15 +13,22 @@ type PropsType = {
 
 
 export const Users = (props: PropsType) => {
+    const [isButtonVisible, setIsButtonVisible] = useState(true);
 
-    if (!props.users.length) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(res => {
-                props.setUsersAC(res.data.items)
-            })
+    let getUsers = () => {
+        if (!props.users.length) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(res => {
+                    props.setUsersAC(res.data.items)
+                    setIsButtonVisible(false)
+                }).catch(error => {
+                console.error('Error fetching users:', error);
+            });
+        }
     }
     return (
         <div>
+            {isButtonVisible && <button onClick={getUsers}>Get Users</button>}
             {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
@@ -30,7 +37,7 @@ export const Users = (props: PropsType) => {
 
                 <div>
                     {u.followed ? <button onClick={() => props.unfollowAC(u.id)}>Unfollow</button> :
-                    <button onClick={() => props.followAC(u.id)}>Follow</button>}
+                        <button onClick={() => props.followAC(u.id)}>Follow</button>}
                 </div>
                      </span>
                 <span>
