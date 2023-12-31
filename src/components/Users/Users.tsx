@@ -14,16 +14,15 @@ type PropsType = {
 }
 
 export class Users extends Component<PropsType> {
-    constructor(props: PropsType) {
-        super(props);
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(res => {
-                props.setUsersAC(res.data.items)
-            }).catch(error => {
-            console.error('Error fetching users:', error);
-        });
-    }
 
+        componentDidMount(){
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(res => {
+                    this.props.setUsersAC(res.data.items)
+                }).catch(error => {
+                console.error('Error fetching users:', error);
+            });
+        }
 
     render() {
         return (
