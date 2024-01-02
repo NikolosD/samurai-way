@@ -7,14 +7,10 @@ import {Header} from "./components/Header/Header";
 
 import {Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import {AppState} from "./redux/store";
 import {UsersContainer} from "./components/Users/UsersContainer";
 
 
-
-type AppProps = {
-
-};
+type AppProps = {};
 
 
 const App: React.FC<AppProps> = () => {
