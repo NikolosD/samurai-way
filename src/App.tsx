@@ -8,6 +8,7 @@ import {Header} from "./components/Header/Header";
 import {Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 type AppProps = {};
@@ -21,7 +22,7 @@ const App: React.FC<AppProps> = () => {
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route exact path="/profile" render={() => <Profile/>}/>
+                    <Route  path="/profile" render={() => <ProfileContainer/>}/>
                     <Route exact path="/dialogs" render={() => <DialogsContainer/>}/>
                     <Route exact path="/users" render={() => <UsersContainer/>}/>
                 </div>

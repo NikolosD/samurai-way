@@ -3,7 +3,7 @@ import {
     dialogsPageReducerType,
     dialogsReducer,
 } from "./dialogs-reducer";
-import {ProfilePageActionType, profileReducer } from "./profile-reducer";
+import {ProfilePageActionType, profileReducer, ProfileType} from "./profile-reducer";
 
 
 export type DialogData = {
@@ -31,6 +31,7 @@ export interface AppState {
     profilePage: {
         postData: PostData[];
         newPostText: string
+        profile: ProfileType | null
     };
 }
 
@@ -68,6 +69,7 @@ let store: StoreType = {
                 {id: 3, message: 'Hello it"s my third post', likesCount: 25},
             ],
             newPostText: '',
+            profile: null,
         },
     },
     _callSubscriber() {

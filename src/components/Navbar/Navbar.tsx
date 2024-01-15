@@ -13,7 +13,7 @@ export const Navbar = () => {
         <nav className={s.nav}>
             <ul>
                 <div className={s.item}>
-                    <NavLink to="/profile" activeClassName={s.link_active} className={s.link}
+                    <NavLink to="/profile/" activeClassName={s.link_active} className={s.link}
                              href="/profile">Profile</NavLink>
                 </div>
                 <div className={s.item}>

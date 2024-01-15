@@ -27,7 +27,7 @@ type MapStateToPropsType = {
 type PropsType = {
     users: UserPageType[]
     followAC: (userId: number) => void
-    unfollowAC: (userId: number) => void
+    unFollowAC: (userId: number) => void
     setUsersAC: (users: UserPageType[]) => void
     totalUsersCount: number,
     setTotalUsersCountAC: (totalUsersCount: number) => void
@@ -65,7 +65,7 @@ class UsersContainer extends Component<PropsType> {
             this.props.isFetching ? <Preloader/> :
                 <Users
                     followAC={this.props.followAC}
-                    unfollowAC={this.props.unfollowAC}
+                    unFollowAC={this.props.unFollowAC}
                     onPageChange={this.onPageChange}
                     users={this.props.users}
                     pageSize={this.props.pageSize}
