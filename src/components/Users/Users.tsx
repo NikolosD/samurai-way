@@ -29,6 +29,7 @@ export const Users: React.FC<PropsType> = (props) => {
                         </span>
                     ))}
                 </div>
+
                 {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
