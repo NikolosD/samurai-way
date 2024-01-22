@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserPageType, UserStateType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 type PropsType = {
@@ -41,8 +42,28 @@ export const Users: React.FC<PropsType> = (props) => {
        </NavLink>
 
                 <div>
-                    {u.followed ? <button onClick={() => props.unFollowAC(u.id)}>Unfollow</button> :
-                        <button onClick={() => props.followAC(u.id)}>Follow</button>}
+                    {u.followed ? <button onClick={()=>{
+                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true,headers:{'API-KEY': '73b72e7c-dd81-4568-9fb1-ea8a8ccd90e7'}})
+                                .then(res => {
+                                    if(res.data.resultCode === 0){
+                                        props.unFollowAC(u.id)
+                                    }
+                                }).catch(error => {
+                                console.error('Error fetching users:', error);
+                            });
+                        }}>Unfollow</button> :
+                        <button onClick={() => {
+                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{}, {withCredentials: true,headers:{'API-KEY': '73b72e7c-dd81-4568-9fb1-ea8a8ccd90e7'}})
+                                .then(res => {
+                                if(res.data.resultCode === 0){
+                                    props.followAC(u.id)
+                                }
+                                }).catch(error => {
+                                console.error('Error fetching users:', error);
+                            });
+                        }}>
+                            Follow
+                        </button>}
                 </div>
                      </span>
                 <span>
