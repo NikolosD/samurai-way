@@ -13,6 +13,7 @@ import React, {Component} from "react";
 import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
+import {UserApi} from "../../api/api";
 
 
 type MapStateToPropsType = {
@@ -40,24 +41,22 @@ class UsersContainer extends Component<PropsType> {
 
     componentDidMount() {
         this.props.setIsFetchingAC(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true,headers:{'API-KEY': '73b72e7c-dd81-4568-9fb1-ea8a8ccd90e7'}})
-            .then(res => {
+            UserApi.getUser(this.props.currentPage,this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetchingAC(false)
-                this.props.setUsersAC(res.data.items)
-                this.props.setTotalUsersCountAC(res.data.totalCount >= 100 ? 100 : res.data.totalCount)
+                this.props.setUsersAC(data.items)
+                this.props.setTotalUsersCountAC(data.totalCount >= 100 ? 100 : data.totalCount)
             })
     }
 
     onPageChange = (p: number) => {
         this.props.setIsFetchingAC(true)
         this.props.setCurrentPageAC(p)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, {withCredentials: true,headers:{'API-KEY': '73b72e7c-dd81-4568-9fb1-ea8a8ccd90e7'}})
-            .then(res => {
+            UserApi.getUser(p,this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetchingAC(false)
-                this.props.setUsersAC(res.data.items)
-            }).catch(error => {
-            console.error('Error fetching users:', error);
-        });
+                this.props.setUsersAC(data.items)
+            });
     }
 
     render() {

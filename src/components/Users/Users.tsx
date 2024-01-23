@@ -4,6 +4,7 @@ import userPhoto from "../../assets/images/user.png";
 import {UserPageType, UserStateType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {UserApi} from "../../api/api";
 
 
 type PropsType = {
@@ -43,9 +44,9 @@ export const Users: React.FC<PropsType> = (props) => {
 
                 <div>
                     {u.followed ? <button onClick={()=>{
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {withCredentials: true,headers:{'API-KEY': '73b72e7c-dd81-4568-9fb1-ea8a8ccd90e7'}})
-                                .then(res => {
-                                    if(res.data.resultCode === 0){
+                           UserApi.unFollowUser(u.id)
+                                .then(data => {
+                                    if(data.resultCode === 0){
                                         props.unFollowAC(u.id)
                                     }
                                 }).catch(error => {
@@ -53,9 +54,10 @@ export const Users: React.FC<PropsType> = (props) => {
                             });
                         }}>Unfollow</button> :
                         <button onClick={() => {
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{}, {withCredentials: true,headers:{'API-KEY': '73b72e7c-dd81-4568-9fb1-ea8a8ccd90e7'}})
-                                .then(res => {
-                                if(res.data.resultCode === 0){
+
+                            UserApi.followUser(u.id)
+                                .then(data => {
+                                if(data.resultCode === 0){
                                     props.followAC(u.id)
                                 }
                                 }).catch(error => {
