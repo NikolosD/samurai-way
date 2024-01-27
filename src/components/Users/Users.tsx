@@ -1,9 +1,9 @@
 import React from 'react';
 import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
-import {UserPageType, UserStateType} from "../../redux/users-reducer";
+import{ UserStateType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+
 import {UserApi} from "../../api/api";
 
 
@@ -11,6 +11,7 @@ type PropsType = {
     followAC: (userId: number) => void
     unFollowAC: (userId: number) => void
     onPageChange: (page: number) => void
+    toggleFollowingProgress: (followingInProgress: boolean, id: number) => void
 } & UserStateType
 export const Users: React.FC<PropsType> = (props) => {
 
@@ -33,7 +34,9 @@ export const Users: React.FC<PropsType> = (props) => {
                 ))}
             </div>
 
-            {props.users.map(u => <div key={u.id}>
+            {props.users.map(u =>{
+                return(
+                <div key={u.id}>
                 <span>
        <NavLink to={'/profile/' + u.id}>
            <img
@@ -43,26 +46,30 @@ export const Users: React.FC<PropsType> = (props) => {
        </NavLink>
 
                 <div>
-                    {u.followed ? <button onClick={()=>{
-                           UserApi.unFollowUser(u.id)
+                    {u.followed ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                            props.toggleFollowingProgress(true,u.id)
+                            UserApi.unFollowUser(u.id)
                                 .then(data => {
-                                    if(data.resultCode === 0){
+                                    if (data.resultCode === 0) {
                                         props.unFollowAC(u.id)
                                     }
+                                    props.toggleFollowingProgress(false,u.id)
                                 }).catch(error => {
                                 console.error('Error fetching users:', error);
                             });
                         }}>Unfollow</button> :
-                        <button onClick={() => {
-
+                        <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                            props.toggleFollowingProgress(true,u.id)
                             UserApi.followUser(u.id)
                                 .then(data => {
-                                if(data.resultCode === 0){
-                                    props.followAC(u.id)
-                                }
+                                    if (data.resultCode === 0) {
+                                        props.followAC(u.id)
+                                    }
+                                    props.toggleFollowingProgress(false,u.id)
                                 }).catch(error => {
                                 console.error('Error fetching users:', error);
                             });
+
                         }}>
                             Follow
                         </button>}
@@ -76,7 +83,7 @@ export const Users: React.FC<PropsType> = (props) => {
                     <div>{'u.location.city'}</div>
                     <div>{'u.location.country'}</div>
                 </span>
-            </div>)}
+            </div>)})}
         </div>
     );
 }

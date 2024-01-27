@@ -1,4 +1,3 @@
-import {ProfilePageType} from "../components/Profile/MyPosts/MyPostsContainer";
 
 
 type UserLocationType = {
@@ -26,6 +25,8 @@ export type UserStateType = {
     currentPage: number,
     totalUsersCount: number,
     isFetching: boolean,
+    isToggling : boolean,
+    followingInProgress: number[]
 }
 
 type followACType = ReturnType<typeof followAC>
@@ -33,9 +34,10 @@ type unFollowACType = ReturnType<typeof unFollowAC>
 type setUsersACType= ReturnType<typeof setUsersAC>
 type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 type setTotalUsersCountType = ReturnType<typeof setTotalUsersCountAC>
-type setIsFetchingAC = ReturnType<typeof setIsFetchingAC>
+type ToggleIsFetchingType = ReturnType<typeof toggleIsFetching>
+type ToggleFollowingProgressType = ReturnType<typeof toggleFollowingProgress>
 
-type UserReducerActionType = followACType | unFollowACType | setUsersACType | setCurrentPageACType  | setTotalUsersCountType | setIsFetchingAC
+type UserReducerActionType = followACType | unFollowACType | setUsersACType | setCurrentPageACType  | setTotalUsersCountType | ToggleIsFetchingType | ToggleFollowingProgressType
 
 const initialState : UserStateType = {
     users: [],
@@ -43,6 +45,8 @@ const initialState : UserStateType = {
     currentPage: 1,
     totalUsersCount: 50,
     isFetching: false,
+    isToggling: false,
+    followingInProgress: []
 }
 export const usersReducer = (state: UserStateType = initialState, action: UserReducerActionType) => {
     switch (action.type) {
@@ -83,6 +87,14 @@ export const usersReducer = (state: UserStateType = initialState, action: UserRe
                 isFetching: action.isFetching
             }
         }
+        case 'TOGGLE-FOLLOWING-PROGRESS':
+            return {
+                ...state,
+                followingInProgress:
+                    action.followingInProgress
+                        ? [...state.followingInProgress, action.id]
+                        : state.followingInProgress.filter(id => id !== action.id)
+            }
         default:
             return state
     }
@@ -107,6 +119,9 @@ export const setTotalUsersCountAC = ( totalUsersCount: number)=>{
     return {type: 'SET-TOTAL-USERS-COUNT', totalUsersCount} as const
 }
 
-export const setIsFetchingAC = (isFetching: boolean)=>{
+export const toggleIsFetching = (isFetching: boolean)=>{
     return {type: 'SET-IS-FETCHING', isFetching} as const
 }
+export const toggleFollowingProgress = (followingInProgress: boolean, id: number) => ({
+    type: 'TOGGLE-FOLLOWING-PROGRESS' as const, followingInProgress, id
+})
