@@ -1,3 +1,5 @@
+import {Dispatch} from "redux";
+import {UserApi} from "../api/api";
 
 
 type UserLocationType = {
@@ -125,3 +127,40 @@ export const toggleIsFetching = (isFetching: boolean)=>{
 export const toggleFollowingProgress = (followingInProgress: boolean, id: number) => ({
     type: 'TOGGLE-FOLLOWING-PROGRESS' as const, followingInProgress, id
 })
+
+export const getUserTC = (currentPage:number, pageSize:number) => (dispatch: Dispatch)=>{
+   dispatch(toggleIsFetching(true))
+    UserApi.getUser(currentPage,pageSize)
+        .then(data => {
+          dispatch(toggleIsFetching(false))
+            dispatch(setCurrentPageAC(currentPage));
+            dispatch(setUsersAC(data.items))
+            setTotalUsersCountAC(data.totalCount >= 100 ? 100 : data.totalCount)
+        })
+}
+
+export const followTC = (id:number) => (dispatch:Dispatch)=>{
+    dispatch(toggleFollowingProgress(true,id))
+    UserApi.followUser(id)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followAC(id))
+            }
+            dispatch(toggleFollowingProgress(false,id))
+        }).catch(error => {
+        console.error('Error fetching users:', error);
+    });
+}
+
+export const unfollowTC = (id:number) => (dispatch:Dispatch)=>{
+    dispatch(toggleFollowingProgress(true,id))
+    UserApi.unFollowUser(id)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollowAC(id))
+            }
+            dispatch(toggleFollowingProgress(false,id))
+        }).catch(error => {
+        console.error('Error fetching users:', error);
+    });
+}
