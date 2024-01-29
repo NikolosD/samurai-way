@@ -2,11 +2,13 @@ import React from 'react';
 import ProfileInfo from "./MyPosts/ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {Profile} from "./Profile";
-import {ProfileType, setUserProfileAC} from "../../redux/profile-reducer";
-import {connect} from "react-redux";
+import {getUserProfileTC, ProfileType, setUserProfileAC} from "../../redux/profile-reducer";
+import {connect, MapDispatchToProps} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import axios from "axios";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {UserApi} from "../../api/api";
+import {Action, Dispatch} from "redux";
 
 
 type PathParamsType = {
@@ -14,18 +16,18 @@ type PathParamsType = {
 }
 
 type PropsType = RouteComponentProps<PathParamsType> & MapStateToPropsType & MapDispatchToPropsType
- class ProfileContainer extends React.Component<PropsType> {
 
-     componentDidMount() {
+class ProfileContainer extends React.Component<PropsType> {
 
-         let userId = this.props.match.params.userId
-         !userId && (userId = '2')
+    componentDidMount() {
 
-         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-             .then(res => {
-                 this.props.setUserProfileAC(res.data)
-             })
-     }
+        let userId = this.props.match.params.userId
+        !userId && (userId = '2')
+
+        this.props.getUserProfileTC(userId)
+
+    }
+
     render() {
         return <Profile {...this.props}   />
     }
@@ -34,16 +36,15 @@ type PropsType = RouteComponentProps<PathParamsType> & MapStateToPropsType & Map
 type MapStateToPropsType = {
     profile: ProfileType | null
 }
-const mapStateToProps = (state: AppStateType): MapStateToPropsType=> {
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile
     }
 }
 
 type MapDispatchToPropsType = {
-    setUserProfileAC: (profile: ProfileType) => void
-}
+    getUserProfileTC: (userId: string)=> void;
+};
 
 
-
-export default connect(mapStateToProps, {setUserProfileAC})(withRouter(ProfileContainer))
+export default connect(mapStateToProps, {getUserProfileTC})(withRouter(ProfileContainer))

@@ -1,5 +1,7 @@
 import {PostData} from "./store";
 import {ProfilePageType} from "../components/Profile/MyPosts/MyPostsContainer";
+import {Dispatch} from "redux";
+import {UserApi} from "../api/api";
 
 export type AddPostActionType = ReturnType<typeof addPostAC>
 
@@ -100,4 +102,11 @@ export const setUserProfileAC = (profile: ProfileType) => {
         type: "SET-USER-PROFILE",
         profile
     } as const
+}
+
+export const getUserProfileTC = (userId:string) => (dispatch: Dispatch)=>{
+    UserApi.getProfile(userId)
+        .then(res => {
+          dispatch(setUserProfileAC(res.data))
+        })
 }
