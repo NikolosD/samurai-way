@@ -7,6 +7,8 @@ import {Message} from "./Message/Message";
 
 import { DialogData, MessageData} from "../../redux/store";
 import {DialogsPageType} from "../../redux/dialogs-reducer";
+import {Redirect} from "react-router-dom";
+import {Login} from "../Login/Login";
 
 
 
@@ -14,7 +16,7 @@ type DialogsType = {
     state: DialogsPageType
     addMessage: (newMessageText: string) => void
     onMessageChange: (e:ChangeEvent<HTMLTextAreaElement>) => void
-
+    isAuth: boolean
 }
 
 export const Dialogs = (props: DialogsType) => {
@@ -31,6 +33,12 @@ export const Dialogs = (props: DialogsType) => {
     let newMessageText = props.state.newMessageText
     let dialogsElement = props.state.dialogsData.map((d:DialogData) => <DialogsItem id={d.id} name={d.name} key={d.id}/>  )
     let messageElement = props.state.messagesData.map((m:MessageData) =>  <Message message={m.message} key={m.id} />)
+
+
+
+    if(props.isAuth === false){
+      return  <Redirect to={'/login'}/>
+    }
 
         return (
             <div className={s.dialogs}>

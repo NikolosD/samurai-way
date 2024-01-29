@@ -6,7 +6,7 @@ import {getUserProfileTC, ProfileType, setUserProfileAC} from "../../redux/profi
 import {connect, MapDispatchToProps} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import axios from "axios";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {UserApi} from "../../api/api";
 import {Action, Dispatch} from "redux";
 
@@ -28,17 +28,24 @@ class ProfileContainer extends React.Component<PropsType> {
 
     }
 
+
+
     render() {
+        if (!this.props.isAuth) {
+            return <Redirect to="/login" />;
+        }
         return <Profile {...this.props}   />
     }
 }
 
 type MapStateToPropsType = {
     profile: ProfileType | null
+    isAuth: boolean
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth
     }
 }
 
