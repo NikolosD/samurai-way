@@ -51,4 +51,4 @@ type MapDispatchToPropsType = {
 };
 
 
-export default compose<ComponentType>((connect(mapStateToProps, {getUserProfileTC})),withRouter,withAuthRedirect)(ProfileContainer)
+export default compose<ComponentType>((connect(mapStateToProps, {getUserProfileTC})),withRouter,)(ProfileContainer)

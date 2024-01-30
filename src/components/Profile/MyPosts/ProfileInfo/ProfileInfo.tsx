@@ -3,10 +3,12 @@ import s from "./ProfileInfo.module.css";
 import {ProfileType} from "../../../../redux/profile-reducer";
 import {Preloader} from "../../../common/Preloader";
 import defaultPic from "../../../../assets/images/user.png";
+import ProfileStatus from "../../ProfileStatus";
 
 type PropsType = {
     profile: ProfileType | null;
 };
+
 
 const ProfileInfo: React.FC<PropsType> = (props) => {
     return (
@@ -15,15 +17,10 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
                 <Preloader/>
             ) : (
                 <div>
-                    <img
-                        className={s.imgClassName}
-                        src="https://img.olympicchannel.com/images/image/private/t_social_share_thumb/f_auto/primary/nrosjoo363yog5hsj1bs"
-                        alt=""
-                    />
                     <div className={s.info}>
                         <img src={props.profile.photos.large || defaultPic} alt={'User Avatar'}/>
                         <div>{props.profile.fullName}</div>
-                        <div>{props.profile.aboutMe}</div>
+                        <ProfileStatus aboutMe={props.profile.aboutMe}/>
                     </div>
                 </div>
             )}
