@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import ProfileInfo from "./MyPosts/ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {Profile} from "./Profile";
@@ -8,7 +8,8 @@ import {AppStateType} from "../../redux/redux-store";
 import axios from "axios";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {UserApi} from "../../api/api";
-import {Action, Dispatch} from "redux";
+import {Action, compose, Dispatch} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type PathParamsType = {
@@ -29,11 +30,7 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
 
-
     render() {
-        if (!this.props.isAuth) {
-            return <Redirect to="/login" />;
-        }
         return <Profile {...this.props}   />
     }
 }
@@ -50,8 +47,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 type MapDispatchToPropsType = {
-    getUserProfileTC: (userId: string)=> void;
+    getUserProfileTC: (userId: string) => void;
 };
 
 
-export default connect(mapStateToProps, {getUserProfileTC})(withRouter(ProfileContainer))
+export default compose<ComponentType>((connect(mapStateToProps, {getUserProfileTC})),withRouter,withAuthRedirect)(ProfileContainer)

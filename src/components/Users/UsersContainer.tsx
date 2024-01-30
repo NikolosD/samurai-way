@@ -7,9 +7,9 @@ import {
     unFollowAC, unfollowTC,
     UserPageType, UserStateType
 } from "../../redux/users-reducer";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
-import React, {Component} from "react";
+import React, {Component, ComponentType} from "react";
 import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
@@ -34,9 +34,9 @@ type PropsType = {
     totalUsersCount: number,
     setCurrentPageAC: (page: number) => void,
     toggleFollowingProgress: (followingInProgress: boolean, id: number) => void
-    getUserTC: (currentPage: number, pageSize: number)=> void
-    followTC: (id:number)=> void
-    unfollowTC: (id:number)=> void
+    getUserTC: (currentPage: number, pageSize: number) => void
+    followTC: (id: number) => void
+    unfollowTC: (id: number) => void
 
 } & UserStateType
 
@@ -44,11 +44,11 @@ class UsersContainer extends Component<PropsType> {
 
 
     componentDidMount() {
-       this.props.getUserTC(this.props.currentPage,this.props.pageSize)
+        this.props.getUserTC(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChange = (p: number) => {
-     this.props.getUserTC(p,this.props.pageSize)
+        this.props.getUserTC(p, this.props.pageSize)
     }
 
     render() {
@@ -86,8 +86,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-
-export default  connect(mapStateToProps,{
+export default compose<ComponentType>(connect(mapStateToProps, {
     followAC,
     unFollowAC,
     setCurrentPageAC,
@@ -95,4 +94,4 @@ export default  connect(mapStateToProps,{
     getUserTC,
     followTC,
     unfollowTC,
-})(UsersContainer)
+}))(UsersContainer)
