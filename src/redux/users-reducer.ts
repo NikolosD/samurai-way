@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {UserApi} from "../api/api";
+import {UserAPI} from "../api/api";
 
 
 type UserLocationType = {
@@ -130,7 +130,7 @@ export const toggleFollowingProgress = (followingInProgress: boolean, id: number
 
 export const getUserTC = (currentPage:number, pageSize:number) => (dispatch: Dispatch)=>{
    dispatch(toggleIsFetching(true))
-    UserApi.getUser(currentPage,pageSize)
+    UserAPI.getUser(currentPage,pageSize)
         .then(data => {
           dispatch(toggleIsFetching(false))
             dispatch(setCurrentPageAC(currentPage));
@@ -141,7 +141,7 @@ export const getUserTC = (currentPage:number, pageSize:number) => (dispatch: Dis
 
 export const followTC = (id:number) => (dispatch:Dispatch)=>{
     dispatch(toggleFollowingProgress(true,id))
-    UserApi.followUser(id)
+    UserAPI.followUser(id)
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(followAC(id))
@@ -154,7 +154,7 @@ export const followTC = (id:number) => (dispatch:Dispatch)=>{
 
 export const unfollowTC = (id:number) => (dispatch:Dispatch)=>{
     dispatch(toggleFollowingProgress(true,id))
-    UserApi.unFollowUser(id)
+    UserAPI.unFollowUser(id)
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(unFollowAC(id))

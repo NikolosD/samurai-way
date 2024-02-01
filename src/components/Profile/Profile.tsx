@@ -9,12 +9,15 @@ import {Login} from "../Login/Login";
 
 type PropsType = {
     profile: ProfileType | null
+    status: string
+    setUserProfileStatusTC: (status: string) => void
+
 }
 export const Profile = (props:PropsType) => {
 
     return (
         <div >
-            <ProfileInfo  profile={props.profile}/>
+            <ProfileInfo  profile={props.profile} status={props.status} setUserProfileStatusTC={props.setUserProfileStatusTC} />
             <MyPostsContainer/>
         </div>
     );

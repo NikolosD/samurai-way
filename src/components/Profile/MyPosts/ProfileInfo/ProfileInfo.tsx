@@ -7,6 +7,8 @@ import ProfileStatus from "../../ProfileStatus";
 
 type PropsType = {
     profile: ProfileType | null;
+    setUserProfileStatusTC: (status: string) => void
+    status: string
 };
 
 
@@ -20,7 +22,7 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
                     <div className={s.info}>
                         <img src={props.profile.photos.large || defaultPic} alt={'User Avatar'}/>
                         <div>{props.profile.fullName}</div>
-                        <ProfileStatus aboutMe={props.profile.aboutMe}/>
+                        <ProfileStatus status={props.status} setUserProfileStatusTC={props.setUserProfileStatusTC}/>
                     </div>
                 </div>
             )}

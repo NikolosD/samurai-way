@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {AuthDataType, getAuthUserDataTC, setAuthUserData} from "../../redux/auth-reducer";
 import axios from "axios";
-import {authApi, UserApi} from "../../api/api";
+import {authApi, UserAPI} from "../../api/api";
 
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType

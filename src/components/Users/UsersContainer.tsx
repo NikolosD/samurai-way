@@ -13,7 +13,7 @@ import React, {Component, ComponentType} from "react";
 import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader";
-import {UserApi} from "../../api/api";
+import {UserAPI} from "../../api/api";
 
 
 type MapStateToPropsType = {

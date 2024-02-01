@@ -4,7 +4,7 @@ import userPhoto from "../../assets/images/user.png";
 import {followTC, unfollowTC, UserStateType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 
-import {UserApi} from "../../api/api";
+import {UserAPI} from "../../api/api";
 
 
 type PropsType = {

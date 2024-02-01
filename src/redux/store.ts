@@ -32,6 +32,7 @@ export interface AppState {
         postData: PostData[];
         newPostText: string
         profile: ProfileType | null
+        status: string
     };
 }
 
@@ -70,6 +71,7 @@ let store: StoreType = {
             ],
             newPostText: '',
             profile: null,
+            status: 'enter your status'
         },
     },
     _callSubscriber() {
@@ -83,6 +85,7 @@ let store: StoreType = {
     },
 
     dispatch(action) {
+        // @ts-ignore
         this._state.profilePage = profileReducer(this._state.profilePage,action as ProfilePageActionType)
         this._state.messagesPage = dialogsReducer(this._state.messagesPage,action as dialogsPageReducerType)
         this._callSubscriber()
