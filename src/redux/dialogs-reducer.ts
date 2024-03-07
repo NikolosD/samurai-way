@@ -1,11 +1,10 @@
 import {DialogData, MessageData} from "./store";
 
 
-export type dialogsPageReducerType = AddMessageActionType | UpdateNewMessageTextActionType
+export type dialogsPageReducerType = AddMessageActionType
 
 export type AddMessageActionType = ReturnType<typeof addMessageAC>
 
-export type UpdateNewMessageTextActionType = ReturnType<typeof updateNewMessageTextAC>
 
 export type DialogsPageType = {
     dialogsData: DialogData[];
@@ -13,7 +12,7 @@ export type DialogsPageType = {
     newMessageText: string
 }
 
-const initialState : DialogsPageType = {
+const initialState: DialogsPageType = {
     dialogsData: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrew'},
@@ -32,23 +31,14 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: di
         case'ADD-MESSAGE':
             const newMessage: MessageData = {
                 id: state.messagesData.length + 1,
-                message: state.newMessageText,
+                message: action.newMessage,
             }
 
             return {
                 ...state,
-                messagesData: [...state.messagesData,newMessage],
+                messagesData: [...state.messagesData, newMessage],
                 newMessageText: ''
             }
-
-
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            return{
-                ...state,
-                newMessageText: action.newMessage
-            }
-
-
         default:
             return state
     }
@@ -61,9 +51,3 @@ export const addMessageAC = (newMessage: string) => {
     } as const
 }
 
-export const updateNewMessageTextAC = (newMessage: string) => {
-    return {
-        type: "UPDATE-NEW-MESSAGE-TEXT",
-        newMessage: newMessage
-    } as const
-}
