@@ -4,6 +4,7 @@ import {profileReducer} from "./profile-reducer";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import thunk from "redux-thunk";
+import {useDispatch} from "react-redux";
 
 
 
@@ -16,6 +17,8 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer,applyMiddleware(thunk))
 export type AppStateType = ReturnType<typeof rootReducer>
+
+
 
 
 export default store
