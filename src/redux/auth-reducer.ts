@@ -50,6 +50,8 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch) =>{
             if (res.data.resultCode === 0) {
                 dispatch(setIsLoggedIn(true));
             } else {
+                dispatch(setIsLoggedIn(false));
+
             }
         });
 }

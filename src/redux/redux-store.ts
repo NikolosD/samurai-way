@@ -5,6 +5,7 @@ import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import thunk from "redux-thunk";
 import {useDispatch} from "react-redux";
+import {appReducer} from "redux/app-reducer";
 
 
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     profilePage: profileReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    app: appReducer,
 })
 
 const store = createStore(rootReducer,applyMiddleware(thunk))
